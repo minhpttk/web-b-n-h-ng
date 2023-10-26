@@ -1,0 +1,63 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+    <h3>Các sản phẩm thuộc: {{loaisp.name}}</h3> 
+
+    <section class="wrapper">
+            <div class="sanpham" style="display: flex;justify-content: start;box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;position: relative;top: -120px;">
+                <div class="new-products" style="width: 900px;">
+
+                    <div class="row" style="margin-left: 5px;" >
+                        {% for product in page_obj %}
+                            {% if forloop.counter0|divisibleby:5 and not forloop.first %}
+                            {% endif %}
+                            <div class="col" style="width: 180px; margin-left: 10px;text-align: center;margin-bottom: 10px;">
+                                <div class="img-product"><img style="width: 150px;height: 200px;" src="{{ product.image.url }}" alt="{{ product.title }}">
+                                </div>
+                                <div class="main-product-content">
+                                    <div ><a style="font-size:20px ;" href="{% url 'product:information' product.id %}">{{ product.title }}</a></div>
+                                    <div> {{ product.cost }}</div>
+                                    <div> {{product.discount_cost}} </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+        
+            </div>
+        {% if page_obj %}
+    <nav style="background-color: white;" aria-label="Page navigation example">
+        <ul class="pagination">
+        
+        
+
+        {{page_obj.paginator.number_page}}
+        {% if page_obj.has_previous %}
+        
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{page_obj.previous_page_number }}">trước</a>
+            </li>
+        {% endif %}
+        {%for i in nums %}
+            <li class="page-item"><a href="?page={{forloop.counter}}" class="page-link">{{forloop.counter}}</a>
+        </li>
+        {% endfor%}
+        
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"href="?page={{page_obj.next_page_number}}">sau</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"href="?page={{page_obj.paginator.num_pages}}">Last &raquo</a>
+        </li>
+        {% endif %}    
+        </ul>
+    </nav>
+    {% endif %}
+    </section>
+    
+{% endblock %}

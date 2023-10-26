@@ -1,0 +1,24 @@
+<style>
+    .list-category{
+        display: grid;
+        grid-template-columns:repeat(4,1fr) ;
+        
+    }
+    .content-category{
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+<button style="position: relative;left: 1200px;width: 250px;height: 50px;font-size: 25px;" type="button" class="btn btn-create"><a href ="{% url 'product:create_category' %}">Thêm mới loại sách</a></button>
+{% for i in lsp %}  
+        <div class="content-category">
+            <div class="content-img">
+                <img src="{{ i.image.url }}">
+            </div>
+            <div class="content-detail">
+                <h2>{{i.name}}</h2>
+                <button type="button" class="btn update"><a href ="{% url 'product:update_category' i.id %}">Sửa</a></button>
+                <button type="button" class="btn delete"><a href ="{% url 'product:delete_category' i.id %}">Xóa</a></button>
+            </div>
+        </div>
+    {% endfor %}

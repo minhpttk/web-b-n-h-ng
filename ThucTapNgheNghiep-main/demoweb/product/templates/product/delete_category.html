@@ -1,0 +1,17 @@
+<h2>Bạn muốn xóa sản phẩm: "{{category}}"</h2>
+<form action="{% url 'product:delete_category' category.id %}" method="POST">
+    {% csrf_token %}
+    
+    
+    <input type="submit" value="Yes">
+    <button type="button" class="btn btn-secondary" onclick="chuyentrang1()">Không đồng ý</a></button>
+        <script>
+            function chuyentrang1()
+            {
+            location.assign("{% url 'product:list_category'  %}");
+            }
+                
+        </script>
+    
+
+</form>

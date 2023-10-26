@@ -1,0 +1,84 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<style>
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin-left: 50px;
+    }
+    
+    ul li {
+        background-color: #f2f2f2;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    
+    ul li:first-child {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    ul li:nth-child(even) {
+        background-color: #e9e9e9;
+    }
+    
+    ul li span {
+        font-weight: bold;
+        color: #555;
+    }
+</style>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="col-12" >
+        <form method="get" action="" style="margin-bottom: 40px; text-align: center;">
+            {% csrf_token %}
+            <label class="lbl" for="start_date" >Từ ngày:</label>
+            <input class="form-control" id="start_date" type="date" name="start_date" id="start_date" value="{{ get_startdate }}" required class="form-control" style="width: 150px;">
+            <label class="lbl" for="end_date" style="margin-left: 30px;">Đến ngày:</label>
+            <input class="form-control" id="end_date" type="date" name="end_date" id="end_date" value="{{ get_enddate }}" required style="width: 150px;">
+            
+            <button id="filter-order" type="submit" class="btn btn-info btn-sm" style="margin-left: 30px;">Lọc</button>
+            <button id="cancel" type="button" class="btn btn-info btn-sm" style="margin-left: 20px;" onclick="back()">Xóa lọc</button>
+            <script>
+                function back()
+                {
+                    location.assign("{% url 'order:revenue'  %}");
+                }
+            </script>
+        </form>
+
+        <ul>Doanh thu: {{sumprice}}</ul> 
+        <ul>Số đơn hàng: {{sumorder}}</ul> 
+        <ul>Tổng sản phẩm: {{sumquantity}}</ul>
+        <table class ="order-tb"> 
+            <tr class="tb-h">
+                <th>STT</th>
+                <th>Đơn hàng</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th> 
+                <th></th>   
+
+                {% for i in order %}
+                <tr class="table-order">
+                    <td>{{ forloop.counter }}</td>      
+                    <td><p>{{i.id}}</p>{{i.datetime}}</td>
+                    <td>{{i.quantity}}</td>
+                    <td>{{i.total_price}}</td>
+                    <td>{{i.get_status_display}}</td>
+                    <td><a href="{% url 'product:review_order' i.id%}" class="btn btn-primary" style="color: white;">Xem chi tiết</a></td>
+                {% endfor %}
+            
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

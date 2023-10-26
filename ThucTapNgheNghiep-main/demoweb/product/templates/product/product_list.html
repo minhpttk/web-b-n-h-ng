@@ -1,0 +1,179 @@
+{% extends 'product/base.html' %}
+ {% block content %} 
+    <head>
+        <style>
+
+        .col {
+        position: relative;
+        width: 200px;
+        transition: transform 0.6s ease; /* Thời gian và hiệu ứng chuyển đổi */
+        }
+
+        .col:hover {
+        transform: scale(1.1); /* Phóng to sản phẩm lên 1.2 lần khi hover */
+        /* border: 1px solid gray; */
+        border-radius: 4px;
+        
+        }
+
+        .discount {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 1px; /* Vị trí từ phía trên cùng */
+        right: 10px; /* Vị trí từ phía bên phải */
+        padding: 5px 10px;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        border-radius: 50%;
+        }
+        .discount-values{
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            font-size: 12px;
+        }
+        /* .a active  {
+            font-size: 20px;
+            margin-left: 20px;
+           
+        } */
+        .active:hover {
+            background-color: rgb(228, 228, 228);
+        }
+        /* #btn-sort:active {
+            background-color: red;
+        } */
+        </style>
+    </head>
+ <div style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" class="sidebar">
+  {%for i in loaisp%}
+  <a  class="active" href="{% url 'product:product_select_main' i.id  %}">{{i.name}}</a>
+  {% endfor%}
+   <!-- Lọc sản phẩm theo giá: -->
+   <div style="padding: 20px;">
+        <form method="GET" action="" >
+            {% csrf_token %}
+            <label for="min_cost" style="margin-top: 10px; font-size: 18px;">Giá từ: </label>
+            <input type="number" name="min_cost"  class="form-control" id="min_cost" value="{{ mincost }}" required style="width: 160px; height:fit-content; " >
+            <label for="max_cost" style="font-size: 18px;">Đến: </label>
+            <input type="number" name="max_cost" class="form-control" id="max_cost" value="{{ maxcost }}" required style="width: 160px; height:fit-content" >
+            
+            <button type="submit" class="btn btn-info btn-sm" style="float: right;margin-top: 10px; margin-bottom: 10px;font-size: 18px; ">Lọc</button>
+            <button type="button" class="btn btn-info btn-sm" onclick="turnback()" style="float: left;margin-top: 10px; margin-bottom: 10px;font-size: 18px;">Xóa lọc</button>
+        </form>
+   </div>
+            <script>
+                function turnback()
+                {
+                  location.assign("{% url 'product:product_list'  %}");
+                }
+            </script>
+
+</div>
+
+<div style="position: relative;top: -600px;left: 300px;" class="sort">
+    
+    <a class="btn btn-light" id="btn-sort" href="{% url 'product:product_list' %}?sort=l2h" role="button" style=" font-size: 20px;border: 1px solid;color: rgb(76, 76, 76); ">Giá thấp đến cao</a>
+    <a class="btn btn-light" id="btn-sort" href="{% url 'product:product_list' %}?sort=h2l" role="button" style=" font-size: 20px;border: 1px solid;color: rgb(76, 76, 76);">Giá cao đến thấp</a>
+
+</div>
+
+<aside style="position: relative;top: -580px;left: 200px;margin-right: 20px;margin-left: 100px; width: 1000px;">
+    <div class="sanpham" style="display: flex;justify-content: start;box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;background:#fff; border-radius: 5px; padding: 40px;">
+        <div class="new-products" style="width: 900px;">
+            <h2 style="margin-bottom: 20px;">Tất cả sản phẩm:</h2>
+            <div class="row">
+                {% for product in page_obj %}
+                    {% if forloop.counter0|divisibleby:5 and not forloop.first %}
+                    {% endif %}
+                    <div class="col" style="width: 180px; margin-left: 10px;text-align: center;margin-bottom: 10px;">
+                    <div class="img-product"><a href ="{% url 'product:information' product.id %}"><img style="width: 150px;height: 200px;" src="{{ product.image.url }}" alt="{{ product.title }}"></a>
+                    </div>
+                    <div class="main-product-content">
+                    <div ><a style="font-size:20px;color: black;" href="{% url 'product:information' product.id %}">{{ product.title }}</a></div>
+                    <div style="color:rgb(0, 0, 0); font-size:18;text-decoration: line-through"> {{ product.cost }}</div>
+                    <div class="discount">{{product.discount}}%</div>
+                    <div style="color:red; font-size:18"> {{product.discount_cost}} </div>
+                    </div>
+                    </div>
+                {% endfor %}
+                
+                {% if product_filtered %}
+                    
+                    {% for product in product_filtered %}
+                        <div class="col" style="width: 180px; margin-left: 10px;text-align: center;margin-bottom: 10px;">
+                            <div class="img-product"><img style="width: 150px;height: 200px;" src="{{ product.image.url }}" alt="{{ product.title }}">
+                            </div>
+                            <div class="main-product-content">
+                                <div ><a style="font-size:20px ;" href="{% url 'product:information' product.id %}">{{ product.title }}</a></div>
+                                <div style="color:rgb(0, 0, 0); font-size:18;text-decoration: line-through"> {{ product.cost }}</div>
+                                <div class="discount">{{product.discount}}%</div>
+                                <div style="color:red; font-size:18"> {{product.discount_cost}} </div>
+                            </div>
+                        </div>
+                        
+                    {% endfor %}
+                    
+                {% endif %}
+                {% if message %}
+                    <div class="alert alert-warning" role="alert" style="width:fit-content;font-size: 18px; margin: 10px;">
+                        {{message}}
+                    </div>
+                {% endif%}
+            </div>
+        </div>
+
+    </div>
+    <br>
+        {% if page_obj %}
+        <nav style="background-color: white;width: 500px;" aria-label="Page navigation example">
+            <ul class="pagination">
+
+
+
+            {{page_obj.paginator.number_page}}
+            {% if page_obj.has_previous %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_obj.previous_page_number }}">trước</a>
+                </li>
+            {% endif %}
+            {%for i in nums %}
+                <li class="page-item"><a href="?page={{forloop.counter}}" class="page-link">{{forloop.counter}}</a>
+            </li>
+            {% endfor%}
+
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"href="?page={{page_obj.next_page_number}}">sau</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"href="?page={{page_obj.paginator.num_pages}}">Last &raquo</a>
+            </li>
+            </ul>
+        </nav>
+        {% endif%}
+        <script>
+            // Lấy tất cả các nút trên trang
+            const buttons = document.querySelectorAll('button');
+
+            // Lặp qua từng nút
+            buttons.forEach(button => {
+                // Kiểm tra xem nút có liên kết đến trang hiện tại không
+                if (button.getAttribute('href') === window.location.pathname) {
+                    // Thêm lớp mới vào nút
+                    button.classList.add('current-page');
+                }
+            });
+        </script>
+</aside>
+
+{% endif %}
+
+{% endblock %}

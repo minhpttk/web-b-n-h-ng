@@ -1,0 +1,479 @@
+
+   
+<!DOCTYPE html>
+{% load static%}
+<html>
+    <head>
+      <title>Website </title>
+        
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <link href='https://unpkg.com/css.gg@2.0.0/icons/css/shopping-cart.css' rel='stylesheet'>
+      <script src="https://kit.fontawesome.com/09f341abbd.js" crossorigin="anonymous"></script>
+        <style>
+            * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Muli', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+body{
+  background-color:rgb(248,248,255);
+}
+li {
+  list-style: none;
+}
+
+/* header */
+nav {
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  background: #6C737E;
+}
+
+nav .content-nav {
+  display: flex;
+  line-height: 2rem;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 60%;
+}
+
+nav .content-nav ul {
+  display: flex;
+  position: relative;
+  top:10px;
+}
+
+nav .content-nav ul li a {
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  padding: 0 15px;
+  font-weight: 800;
+}
+
+nav .content-nav ul li a:hover {
+  color: #fff;
+}
+
+.content-nav form {
+  position: relative;
+}
+
+.content-nav form input {
+  border: none;
+  background: #fff;
+  padding: 7px;
+  outline: none;
+  border-radius: 12px;
+}
+
+.content-nav form button {
+  padding: 5px;
+  border-radius: 12px;
+  position: absolute;
+  right: 0;
+  top: 2px;
+  border: none;
+  outline: none;
+  background: #fff;
+}
+
+
+.btn {
+  cursor: pointer;
+  outline: none;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  /* padding: .5rem 1rem; */
+  font-size: 1rem;
+  border-radius: .25rem;
+  transition: all .2s ease-in-out;
+}
+
+.btn-secondary {
+  color: #292b2c;
+  background-color:none;
+  border-color: none;
+  height: 40px;
+  margin-left: 100px;
+  
+}
+.wrapper {
+  padding: 2rem;
+}
+
+
+.products ul {
+  display: flex;
+  justify-content: start;
+  text-align: center;
+}
+.products ul li{
+    display: inline-block;
+}
+
+/* .products ul .main-product {
+  margin-bottom: 2rem;
+  margin-right: 1rem;
+  display: block;
+  float: left;
+  width: 100px;
+} */
+
+.products ul .no-margin {
+  margin-right: 0;
+}
+
+.products ul .img-product img {
+  width: 100%;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+main{
+  min-height: 80vh;
+}
+
+
+/* footer */
+.footer-item {
+  padding: .5rem 2rem;
+  background: #f1df11;
+  display: flex;
+
+}
+
+.footer-item .img-footer {
+  align-items: center;
+  display: flex;
+}
+
+.footer-item .img-footer img {
+  width: 100%;
+}
+
+.footer-item .social-footer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.footer-item .social-footer li a {
+  color: #000000;
+  font-size: 2rem;
+}
+
+.footer-item .social-footer li:last-child {
+  margin-left: .5rem;
+}
+.btn btn-cart{
+    border: 2px solid black;
+    border-radius: 4px;
+}
+.category ul{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+}
+.category{
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: aliceblue;
+}
+.category li a{
+    text-decoration: none;
+    color: black;
+    font-size: larger;
+}
+.home-products{
+    width:850px;
+    height: auto;
+    background-color: rgb(243, 217, 166);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.sidebar {
+  margin-top: 50px;
+  padding: 0;
+  width: 200px;
+  background-color: #f4f4f4;
+  height: auto;
+  overflow: auto;
+  top:200px;
+  
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  /* background-color:gray; */
+  color: black;
+  font-size: 18px;
+  padding-left: 30px;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+.product-content-list{
+  position: relative;
+  top: -230px;
+}
+
+/* header user */
+.user{
+  display: flex;
+  width: 250px;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: auto;
+  margin-left:20px ;
+  padding: 0;
+  color: #fff;
+  /* border: 1px solid black; */
+
+}
+.user-content{
+  position: relative;
+  top: 5px;
+  padding: 5px;
+  background-color: gainsboro;
+  border-radius: 4px;
+}
+.user-content p{
+  margin: 0;
+}
+.user-content a{
+  color: #000;
+  text-decoration: none;
+}
+/* index page */
+
+footer{
+  height: 250px;
+  background-color: #555;
+  color:#f1f1f1;
+  width: 100%;
+  padding-top: 20px ;
+  /* margin-top:150px; */
+  display: flex;
+}
+footer div {
+  text-align: center;
+  padding:10px;
+  margin:10px;
+
+}
+.col-1 {
+  width: 45%;
+  
+}
+.col-2 {
+  width: 55%;
+  
+}
+footer div h5 {
+  font-weight: 500;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+.col-1 a{
+  display: block;
+  text-decoration: None;
+  color: #f1f1f1;
+  margin-bottom: 10px;
+}
+.social-icons {
+  margin-top: 10px ;
+}
+
+.social-icons i{
+  font-size: 30px;
+  margin: 10px;
+  cursor: pointer;
+  color: #f1f1f1;
+} 
+.container-slider{
+
+}
+/* usersdropdownlist */
+.dropbtn {
+  background-color: #6c737e;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #a7adae;
+}
+.note{
+  position: relative;
+  top:22px;
+  left: -50px;
+  display: inline-block;
+  color: #fff;
+  font-weight: 600;
+}
+.current-page {
+  background-color: blue;
+  color: white;
+}
+
+
+         
+        </style>
+    </head>
+    <body>
+        <!-- header -->
+    <header>
+        <nav>
+            <div class="img-nav">
+                <img src="img/logo.png" alt="" />
+            </div>
+            <div class="content-nav">
+                <ul>
+                    <li><a href="{% url 'product:index' %}">Trang Chủ</a></li>
+                    <li><a href="{% url 'product:product_list' %}">Sản Phẩm</a></li>
+                    <li><a href="{% url 'product:contact' %}">Liên Hệ</a></li>
+                    <li><a href="{% url 'product:about_us' %}">Giới Thiệu</a></li>
+                </ul>
+                <form style="position: relative;left:100px;" id="myForm" action="{% url 'product:search' %}" >
+                    <input style="width: 300px;"  type="text" name="q" placeholder="Tìm kiếm tên sản phẩm..." value="{{ q }}" required />
+                    <button style="cursor: pointer;z-index: 999;" type="submit"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></button>
+                </form>
+            </div>
+            
+            <div style="text-align: center;position: relative;top: -10px;color: #fff;">
+              <button style="position:relative;left: 100px;" type="button" class="btn btn-secondary"  onclick="show_cart()"><i style="color: #fff;" class="gg-shopping-cart" style="position: relative;display: inline-block;"></i><span class="badge text-bg-danger" style=" position: absolute;top: -2px;right:-5px;font-size: 12px;">{{request.session.count_cartitem}}</span></button>
+              <p style="display: inline-block;position: relative;top: 30px;left:  45px;" >Giỏ hàng</p>
+            </div>
+            <script>
+              function show_cart()
+              {
+                var user = "{{ request.user }}";
+                if (user!== "AnonymousUser") {
+                  location.assign("{% url 'product:show_cart'  %}");
+                }
+                else {
+                  location.assign("{% url 'product:login'  %}");
+                }
+
+              }
+          </script>
+
+
+
+            <div class="user" style="position: relative;left: 50px;top: 5px;">
+              {% if user.username %}
+                  <p >Xin chào <b>{{user.username}}</b></p>
+
+           
+                  
+                  <div class="btn-group">
+                    <button style="position: relative;top: -10px;" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tài khoản
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{% url 'product:profile'%}">Thông tin tài khoản</a>
+                      <a class="dropdown-item" href="{% url 'product:order_list'%}">Đơn hàng đã đặt</a>
+                      <a class="dropdown-item" href="{% url 'product:logout'%}">Đăng xuất</a>
+                      <a class="dropdown-item" href="{% url 'product:password_change'%}">Đổi mật khẩu</a>
+                     
+                    
+                  </div>
+                  
+                  <!-- <p class="user-content"><a href="{% url 'product:logout'%}">Logout</a></p> -->
+              {% else %}
+              <div style="position: relative;top: -18px;">
+                <div class="dropdown">
+                  <button class="dropbtn"><i class="fa-solid fa-user" style="font-size: 20px;"></i></button>
+                  <div class="dropdown-content">
+                  <a href="{% url 'product:register' %}">Đăng ký</a>
+                  <a href="{% url 'product:login'%}">Đăng nhập</a>
+                  </div>
+                <p style="display: inline;position: relative;top: 20px;left: -50px;">Tài khoản</p>  
+                </div>
+              {% endif %}
+            
+      
+    </header>
+        <main class="container">
+
+                {% block content %}
+                {% endblock %}
+        </main>
+    </body>
+
+<footer>
+    
+  <div class="col-1">
+    <h5>Các liên kết</h5>
+    <a href="{% url 'product:index' %}">Trang chủ</a>
+    <a href="{% url 'product:product' %}">Sản phẩm</a>
+    <a href="{% url 'product:contact' %}">Liên hệ</a>
+    <a href="{% url 'product:about_us' %}">Giới thiệu</a>
+  </div>
+  <div class="'col-2">
+    <h5>Tên Website</h5>
+    71 Ngũ Hành Sơn, phường Mỹ An, quận Ngũ Hành Sơn, Đà Nẵng<br>
+    Điện thoại: 0987 654 321<br>
+    Email: due@gmail.com
+    <div class="social-icons">
+      <a href="https://www.google.com.vn/"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.google.com.vn/"><i class="fa-regular fa-envelope"></i></a>
+
+    </div>
+  </div>
+</footer>
+</html>

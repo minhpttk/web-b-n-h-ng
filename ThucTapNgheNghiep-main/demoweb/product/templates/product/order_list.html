@@ -1,0 +1,55 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+</head>
+<br>
+<h4 style="font-weight: normal;">Đơn hàng của bạn:</h4>
+<br>
+
+
+<form method="get" action="" style="margin-bottom: 40px; text-align: center;">
+    {% csrf_token %}
+    <label class="lbl" for="start_date" >Từ ngày:</label>
+    <input class="form-control" id="start_date" type="date" name="start_date" id="start_date" value="{{ get_startdate }}" required class="form-control" style="width: 150px;">
+    <label class="lbl" for="end_date" style="margin-left: 30px;">Đến ngày:</label>
+    <input class="form-control" id="end_date" type="date" name="end_date" id="end_date" value="{{ get_enddate }}" required style="width: 150px;">
+    
+    <button id="filter-order" type="submit" class="btn btn-info btn-sm" style="margin-left: 30px;">Lọc</button>
+    <button id="cancel" type="button" class="btn btn-info btn-sm" onclick="back()" style="margin-left: 20px;" >Xóa lọc</button>
+    
+</form>
+<div>
+    <script>
+        function back()
+        {
+            location.assign("{% url 'product:order_list'  %}");
+        }
+    </script>
+</div>
+
+    
+<table class ="order-tb"> 
+    <tr class="tb-h">
+        <th>STT</th>
+        <th>Đơn hàng</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
+        <th>Trạng thái</th> 
+        <th></th>   
+
+        {% for i in order %}
+        <tr class="table-order">
+            <td>{{ forloop.counter }}</td>      
+            <td><p>{{i.id}}</p>{{i.datetime}}</td>
+            <td>{{i.quantity}}</td>
+            <td>{{i.total_price}}</td>
+            <td>{{i.get_status_display}}</td>
+            <td><a href="{% url 'product:review_order' i.id%}" class="btn btn-primary">Xem chi tiết</a></td>
+        {% endfor %}
+    
+    </tr>
+</table>
+{% endblock %}

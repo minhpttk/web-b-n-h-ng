@@ -1,0 +1,63 @@
+{% extends "product/base.html"%}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<section>
+    <div class="form-box" style="height: auto;width: 500px;">
+        <div class="form-values">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for key,value in form.errors.items %}
+                    <em style="font-size: 18px; float:center">{{value}}</em>
+                {% endfor %}
+                <h2>Đăng ký</h2>
+                <div class="inputbox" >
+                    <i class="fa-regular fa-user"></i>
+                    {{form.username}}
+                    <label >Tài khoản</label>
+                </div>
+                    
+                <div class="inputbox">
+                    <i class="fa-regular fa-envelope"></i>
+                    {{form.email}}
+                    <label >Email</label>
+                </div>
+                <div class="inputbox">
+                    <i class="fa-solid fa-lock"></i>
+                    {{form.password1}}
+                    <label >Mật khẩu</label>
+                </div>
+                <div class="inputbox">
+                    <i class="fa-solid fa-lock"></i>
+                    {{form.password2}}
+                    <label >Xác nhận mật khẩu</label>
+                </div>
+                <div class="inputbox1">
+                <label style="position: relative;top: -10px;font-size: 1.2em;padding-left:5px ;" >Câu hỏi bảo mật:</label>
+                    <div class="form-control" style="position: relative;">{{form.question}}</div>
+                    
+                </div>
+
+                <div class="inputbox">
+                    {{form.answer}}
+                    <label >Trả lời</label>
+                </div>
+                <!-- <div class="forget">
+                    
+                    <label for=""><input type="checkbox">Nhớ mật khẩu  </label>
+                    <a href="">Quên mật khẩu</a>
+                </div> -->
+                <input type="hidden" name="next" value="/">
+                <input class="login" type="submit" value="Đăng ký">
+                <div class="register">
+                    <p>Đã có tài khoản <a href="{% url 'product:login'%}">Đăng nhâp </a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

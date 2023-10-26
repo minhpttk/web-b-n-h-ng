@@ -1,0 +1,64 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<head>
+ 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+
+<div class="row" style="margin-top: 50px;">
+  <div class="col-4" >
+    <canvas id="pieChart" ></canvas>
+    <h5 style="text-align: center;margin-top: 30px;">Biểu đồ tỉ lệ hàng đã bán và hàng tồn kho</h5>
+    <ul>Nhập vào: {{pr_inventory}}</ul>
+    <ul>Đã bán: {{pr_sold}}</ul>
+   
+  </div>
+ 
+  <script>
+    const ctxPie = document.getElementById('pieChart');
+ 
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: {{ labels|safe }},
+        datasets: [{
+          label: 'Tỉ lệ hàng đã bán và hàng tồn kho',
+          data: {{ data|safe }},
+          backgroundColor: ['#78C1F3','#FFC26F',],
+        //   borderColor: colorPrimary,
+          borderWidth: 1
+        }]
+      },
+     
+    });
+  </script>
+   
+  <div class="col-6" style="margin-left: 100px;">
+    <canvas id="barChart" ></canvas>
+    <h5 style="text-align: center;margin-top: 50px;">Top 5 sản phẩm bán chạy nhất</h5>
+  </div>
+   
+ 
+  <script>
+    const ctxBar = document.getElementById('barChart');
+ 
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: {{ labels_bar|safe }},
+        datasets: [{
+          label: 'Products',
+          data: {{ data_bar|safe }},
+          backgroundColor: ['#D36B00','#82CD47','#FFD93D','#A9907E','#B5D5C5'],
+        //   borderColor: colorPrimary,
+          borderWidth: 1
+        }]
+      },
+     
+    });
+   
+  </script>
+{% endblock %}
+

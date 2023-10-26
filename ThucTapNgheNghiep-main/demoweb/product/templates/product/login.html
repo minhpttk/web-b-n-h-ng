@@ -1,0 +1,52 @@
+{% extends "product/base.html"%}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/Login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<section>
+    
+    <div class="form-box">
+ 
+        <div style="position: absolute;top: -100px;left: 0px;">
+    
+            {% if form.errors.password %}
+                <p class="error-message">{{ form.errors.password }}</p>
+            {% endif %}
+         
+        </div>
+        <div class="form-values">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for key,value in form.errors.items %}
+                    <em style="font-size: 18px; float:center; margin-top: 50px;">{{value}}</em>
+                {% endfor %}
+                <h2>Đăng nhập</h2>
+                <div class="inputbox" >
+                    <i class="fa-regular fa-user"></i>
+                    {{form.username}}
+                    <label >Tài khoản</label>
+                </div>
+                    
+                <div class="inputbox">
+                    <i class="fa-solid fa-lock"></i>
+                    {{form.password}}
+                    <label >Mật khẩu</label>
+                </div>
+                <div class="forget">
+                    
+                    <!-- <label for=""><input type="checkbox">Nhớ mật khẩu  </label> -->
+                    <a href="{% url 'product:forgot_password_question' %}" style="font-size: large;">Quên mật khẩu</a>
+                </div>
+                <input type="hidden" name="next" value="/">
+                <input class="login" type="submit" value="Đăng nhập">
+                <div class="register">
+                    <p>Không có tài khoản?  <a href="{% url 'product:register' %}">Đăng ký </a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

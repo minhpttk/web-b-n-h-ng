@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background:url('/static/image/background1.jpg') no-repeat;
+
+    background-size: cover;
+
+}
+.form-box{
+    position: relative;
+    width: 500px;
+    height: auto;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(104, 104, 104);
+    border-radius: 10px;
+}
+h2{
+    font-size: 2em;
+    color:rgb(80, 80, 80);
+    text-align: center;
+    margin-bottom: 50px;
+}
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border:2px solid rgb(0, 0, 0) ;
+    border-radius: 10px;
+}
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: rgb(0, 0, 0);
+    pointer-events: none;
+    transition: .5s;
+    font-size: large;
+}
+.inputbox input[type='text'], .inputbox input[type='password'], .inputbox input[type='email']{
+    width: 100%;
+    height: 50px;
+    /* background: transparent; */
+    border: 1px;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+input[type='text']:focus ~ label,
+input[type='text']:valid ~ label{
+    top:-12px;
+}
+
+input[type='password']:focus ~ label,
+input[type='password']:valid ~ label{
+    top:-12px;
+}
+input[type='email']:focus ~ label,
+input[type='email']:valid ~ label{
+    top:-12px;
+}
+.inputbox .fa-regular, .inputbox .fa-solid{
+    position: absolute;
+    right: 8px;
+    color: rgb(0, 0, 0);
+    font-size:1.2em;
+    top: 15px;
+}
+.forget{
+    margin: -15px 0 15px;
+    font-size: .9em;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+.forget label input{
+    margin-right:3px ;
+    font-size: large;
+}
+.forget label a{
+    color: #fff;
+    text-decoration:none ;
+    font-size: large;
+}
+.forget label a:hover{
+    text-decoration: underline ;
+
+}
+.login{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background:#fff ;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: .9em;
+    color: #000;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+.register{
+    text-decoration: none;
+    color: rgb(80, 80, 80);
+    font-weight: 600;
+    text-align: center;
+}
+.register p a:hover{
+    text-decoration: underlivalid
+}
+
+.container{
+    width: 100%;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+}

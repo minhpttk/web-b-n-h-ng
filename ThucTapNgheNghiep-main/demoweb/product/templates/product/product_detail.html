@@ -1,0 +1,176 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+</head>
+<br>
+
+<br>
+<div class="row">
+    <div class="col-6">
+        <div class="product-image">
+            <img src="{{ sp.image.url }}" style="width: 500px; height: 550px">
+            
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="product-information">
+            <h4>{{sp.title}}</h4>
+            <h5>Tác giả: {{sp.author}}</h5>
+            {{sp.rating}}/5 ({{sp.product_review.all.count}} đánh giá)
+            {% for i in avg_rating %}
+                {% if i == 1 %}
+                    <i class="fas fa-star" style="color: #ffb503;"></i>
+                {% elif i == 2 %}
+                    <i class="fas fa-star-half-alt" style="color: #ffb503;"></i>
+                {% else %}
+                    <i class="far fa-star"></i>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <br>
+            <h4 style="display:inline-block ;" >{{sp.discount_cost}} </h4> <h4 style ="text-decoration: underline; display: inline-block;margin-right: 20px;">đ</h4>
+            <h5 style ="display:inline-block; text-decoration: line-through;">{{sp.cost}} </h5> <h5 style ="text-decoration: underline; display: inline-block;margin-right: 20px">đ</h5>
+            <h5 style="display:inline-block;font-size: 20px; " >-{{sp.discount}} %</h5>
+            </br>
+            
+            <button type="button" class="btn-add-cart" onclick="add_success()"><a style="text-decoration: none; color: #fff;" href="{% url 'product:add_to_cart' sp.id %}">Thêm vào giỏ hàng</button></a> 
+            {% if user.is_authenticated%}
+                <script>
+                    function add_success(){
+                        
+                        alert('Thêm vào giỏ hàng thành công !');
+                    }
+                </script>
+            {% else %}
+                <script>
+                    function add_success(){
+                        
+                        alert('Đăng nhập để thêm vào giỏ hàng !');
+                        
+                    }
+                </script>
+            {% endif %}
+        </div>
+        <br>
+        <br>
+        <h5>Thông tin chi tiết:</h5>
+        <div>
+            <table class="tb-description">
+                <tbody>
+                    <tr>
+                        <td style="width: 20%">Nhà xuất bản: </td>
+                        <td>{{sp.publisher}}</td>
+                    </tr>
+                    <tr>
+                        <td>Số trang: </td>
+                        <td>{{sp.pages}}</td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả: </td>
+                        <td>{{sp.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-6">
+    {% if login_message %}
+        <div class="alert alert-warning" role="alert">
+        {{ login_message }} <a href="{% url 'product:login' %}">Đăng nhập tại đây</a>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        {% if is_review %}
+        <h4>Đánh giá sản phẩm:</h4>
+        <form action= "{% url 'product:information' sp.id %}", method="post">
+            {% csrf_token %}
+            <div class="rate">
+                <input type="radio" name="rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
+                <input type="radio" name="rating" id="rating4" value="4" required /><label for="rating4" title="4"></label>
+                <input type="radio" name="rating" id="rating3" value="3" required /><label for="rating3" title="3"></label>
+                <input type="radio" name="rating" id="rating2" value="2" required /><label for="rating2" title="2"></label>
+                <input type="radio" name="rating" id="rating1" value="1" required /><label for="rating1" title="1"></label>
+                
+            </div>
+            <br>
+                Đánh giá:
+                <textarea name="review" rows="4" class="form-control"></textarea>
+            <button class="btn-add-review" type="submit">Lưu</button>
+        </form>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            <strong>{{message}}</strong>
+        </div>   
+        {% endif %}
+    {% endif %}
+</div>
+</div>
+
+<br>
+<br>
+<h4>Xem đánh giá:</h4>
+
+    <div>
+        <table class="tb-review">
+            {% for i in sp.product_review.all %}
+            <tr>
+                <td id="name-time" style="width:30%;">
+                    <strong>{{request.user.last_name}}</strong><br>
+                    {{i.created_time}}
+                </td>
+                <td style="width:70%;">
+                    {%if i.rating == 1%}
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                    {%if i.rating == 2%}
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                    {%if i.rating == 3%}
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                    {%if i.rating == 4%}
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                    {%if i.rating == 5%}
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                        <i class="fas fa-star" style="color: #ffb503;"></i>
+                    {% endif %}
+                    <br>
+                    {{i.review}}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        
+        
+    </div>
+<br>
+<br>
+
+{% endblock %}

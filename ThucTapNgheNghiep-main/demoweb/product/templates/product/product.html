@@ -1,0 +1,118 @@
+{% extends 'product/base.html' %}
+<!-- {% load static %} -->
+
+{% block content %}
+    <head>
+
+        <style>
+            .main-product {
+            position: relative;
+            width: 200px; /* Kích thước ban đầu của sản phẩm */
+            height: 200px;
+            margin:20px;
+            }
+
+            .main-product {
+            transition: transform 0.3s ease; /* Thời gian và hiệu ứng chuyển đổi */
+            }
+
+            .main-product:hover {
+            transform: scale(1.1); /* Phóng to sản phẩm lên 1.2 lần khi hover */
+            /* border: 1px solid gray; */
+            border-radius: 4px;
+            }
+
+            .discount {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 1px; /* Vị trí từ phía trên cùng */
+            right: 1px; /* Vị trí từ phía bên phải */
+            padding: 5px 10px;
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            }
+            .discount-values{
+                position: absolute;
+                top: 10px;
+                right: 3px;
+                font-size: 12px;
+                padding: 5px;
+            }
+            .content-product-name{
+
+            }
+            .active:hover {
+            background-color: rgb(228, 228, 228);
+            }
+
+        </style>
+    </head>
+    <div class="sidebar">
+        {%for i in loaisp%}
+        <a class="active" href="{% url 'product:product_select_main' i.id  %}">{{i.name}}</a>
+        {% endfor%}
+    </div>
+    <aside class="product-content-list" style="margin:100px 0 0 300px;position: relative;top: -500px;">
+        <h1 style="margin-bottom:50px">Các sản phẩm thuộc: {{lsp_name.name}}</h1>
+        <div style="display:flex" >
+            {% for i in page_obj %}
+            <div class="main-product" style="text-align:center;width: 150px;" >
+                <div class="img-product">
+                    <a href ="{% url 'product:information' i.id %}"><img style="width:120px;height:150px" src="{{i.image.url}}" alt=""></a>
+                </div>
+                <div class="content-product">
+                    <h3 class="content-product-name"><a style="font-size:20px;color: black;" href ="{% url 'product:information' i.id %}">{{i.title}}</a></h3>
+                    <div class="content-product-details">
+                        <div class="price">
+                            <span class="money" style="color:rgb(0, 0, 0); font-size:18;text-decoration: line-through">{{i.cost}}</span>
+                        </div>
+                        <div class="discount">{{i.discount}}%
+                        </div>
+                        <div class="discountcost" style="color:red; font-size:18">{{i.discount_cost}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </br>
+    <br>
+    {% if page_obj %}
+    <div style="background-color:whitesmoke;position: relative;top: 100px;" aria-label="Page navigation example">
+        <ul class="pagination">
+        
+        
+
+        {{page_obj.paginator.number_page}}
+        {% if page_obj.has_previous %}
+        
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo Đầu</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{page_obj.previous_page_number }}">trước</a>
+            </li>
+        {% endif %}
+        {%for i in nums %}
+            <li class="page-item"><a href="?page={{forloop.counter}}" class="page-link">{{forloop.counter}}</a>
+        </li>
+        {% endfor%}
+        
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"href="?page={{page_obj.next_page_number}}">sau</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"href="?page={{page_obj.paginator.num_pages}}">Cuối &raquo</a>
+        </li>
+        {% endif %}    
+        </ul>
+    </div>
+    {% endif %}
+    </aside>
+
+{% endblock %}

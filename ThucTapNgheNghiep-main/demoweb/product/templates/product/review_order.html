@@ -1,0 +1,46 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+</head>
+<br>
+
+<br>
+<h4>Thông tin đơn hàng:</h4>
+<br>
+<div class="row">
+    <div class="col-4">
+        <h6>Địa chỉ nhận hàng:</h6>
+        <div class="infor">
+            
+                <li>{{order.user.first_name}} {{order.user.last_name}}</li>
+                <li>Địa chỉ: {{order.user.street}}, {{order.user.ward}}, {{order.user.district}}, {{order.user.city}}</li>
+                <li>SĐT: {{order.user.phone}}</li>
+        </div>
+    </div>
+    <div class="col-4">
+        <h6>Thời gian đặt hàng:</h6>
+        <div class="datetime"> 
+            <li> {{order.datetime}}</li>
+        </div>
+    </div>
+    <div class="col-4">
+        <h6>Tổng tiền:</h6> 
+        <div class="total-review">
+            
+            {{order.total_price}}
+        </div>
+    </div>
+</div>
+<br>
+
+<h6>Sản phẩm:</h6>
+
+    {% include 'product/table_product.html' %}
+
+
+<button type="button" class="order-list" style="margin: 50px"><a style="text-decoration: none;color: #fff; " href ="{% url 'product:order_list' %}">Quản lý đơn hàng</button></a><br>
+
+{% endblock %}

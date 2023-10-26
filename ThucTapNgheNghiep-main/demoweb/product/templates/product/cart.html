@@ -1,0 +1,77 @@
+{% extends 'product/base.html' %}
+
+{% load static %}
+{% block content %}
+<head>
+    
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    
+</head>
+<body>
+    <br>
+    <h4>Giỏ hàng</h4>
+    {% if error_message %}
+  <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+  </div>
+    {% endif %}
+    <div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+                <h5><a  class="btn btn-outline-dark" href="{% url 'product:index' %}">&#x2190; Quay lại trang chủ</a></h5>
+                <br>
+                <table class="table1">
+                    <tr>
+                        <th><h6>Tổng sản phẩm:</h6>{{order.quantity}}</th>
+                        <th><h6>Tổng tiền:</h6>{{order.total_price}}</th>
+                        {% if is_order %}
+                        <th>
+                            <a style ="float:right; margin:5px;background-color: limegreen;" class="btn btn success" href="{% url 'product:checkout' %}">Thanh toán</a>
+                        </th>
+                        {% endif %}
+                    </tr>
+                </table>
+
+			</div>
+
+            <br>
+            <br>
+    <table class="cart-tb">
+        <tr class="table-head">
+            <th></th>
+            <th>Sản phẩm</th>
+            <th>Giá tiền</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th></th>
+        </tr>
+        {% for i in orderDetail %}
+                
+        
+            <tr class="table-content">
+            
+                <td><a href ="{% url 'product:information' i.product.id %}"><img class="row-image" src="{{i.product.image.url}}"></a></td>
+                <td><a href ="{% url 'product:information' i.product.id %}" style="text-decoration: None; color:black"><p>{{i.product.title}}</p></a></td>
+                <td><p>{{i.product.discount_cost}}</p></td>
+                
+                
+                <td>
+                    <div class="Quantity">
+                        <a class="minus-cart btn" href="{% url 'product:minus_quantity' i.id %}" ><i class="fas fa-minus-square fa-lg"></i></a>
+                        <span id="quantity">{{i.quantity}}</span>
+                        <a class="plus-cart btn" href="{% url 'product:plus_quantity' i.id %}" ><i class="fas fa-plus-square fa-lg"></i></a>
+
+                    </div>
+                </td>
+                 
+                <td>{{i.total}}</td>
+                <td><a href="{% url 'product:remove_orderDetail' i.id %}"><i class="fa-solid fa-trash"></a></i></td>
+        {% endfor %}
+        </tr>
+    </table>
+
+</body>
+</html>
+{% endblock %}

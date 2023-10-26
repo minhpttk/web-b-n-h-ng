@@ -1,0 +1,47 @@
+{% extends 'product/base.html' %}
+{% load static %}
+<head>
+    
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    
+</head>
+{% block content %}
+<body>
+  
+    <table class="book">
+        <tr class="tb-head">
+            <th>STT</th>
+            <th>Sản phẩm</th>
+            <th>Giá tiền</th>
+            <th>Giảm giá</th>
+            <th>Số lượng</th>
+            <th>Thao tác</th>
+            
+        </tr>
+        
+               
+        {% for i in sp %}
+            <tr>
+                
+                <td></td> 
+                
+                
+                <td>{{i.title}}<br><a href ="{% url 'product:information' i.id %}"><img style="width: 120px; height: 120px;" src="{{i.image.url}}"></a></td>
+                
+                <td><p>{{i.cost}}</p></td>
+                <td><p>{{i.discount_cost}} (-{{i.discount}}%) </p></td>
+                    
+                <td><p>{{i.quantity}}</p></td>
+    
+                <td><button type="button" class="btn btn-update"><a href ="{% url 'product:update_product' i.id %}">Sửa</a></button>
+                    <button type="button" class="btn btn-delete"><a href ="{% url 'product:delete_product' i.id %}">Xóa</a></button></td>
+            </tr>  
+                
+        {% endfor %}
+        </tr>
+    </table>
+
+
+</body>
+{% endblock %}

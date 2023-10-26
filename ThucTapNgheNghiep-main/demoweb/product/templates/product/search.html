@@ -1,0 +1,56 @@
+{% extends 'product/base.html' %}
+
+{% block content %} 
+  <head>
+      <style> 
+        .col {
+          position: relative;
+          width: 200px;
+          transition: transform 0.6s ease; /* Thời gian và hiệu ứng chuyển đổi */
+          }
+
+          .col:hover {
+          transform: scale(1.1); /* Phóng to sản phẩm lên 1.2 lần khi hover */
+          /* border: 1px solid gray; */
+          border-radius: 4px;
+          
+          }
+      </style>
+  </head>
+  <br>
+  <!-- <h1 style="margin: 20px; color:gray; display:inline">Kết quả tìm kiếm cho: {{request.GET.q}}</h1> -->
+
+  <aside style="position: relative;top: 0px; margin-right: 100px;margin-left: 150px;margin-bottom: 50px; width: 1000px;">
+    <div class="sanpham" style="display: flex;justify-content: start;box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;background:#fff; border-radius: 5px; padding: 40px;">
+        <div class="new-products" style="width: 900px;">
+            <h2 style="margin-bottom: 20px;">Kết quả tìm kiếm: </h2>
+            <div class="row">
+              {% if sp %}
+                {% for i in sp %}
+                  <div class="col" style="width: 180px; margin-left: 10px;text-align: center;margin-bottom: 10px;">
+                      <div class="img-product"><a href ="{% url 'product:information' i.id %}"><img style="width: 150px;height: 200px;" src="{{ i.image.url }}" alt="{{ i.title }}"></a>
+                      </div>
+                      <div class="main-product-content">
+                          <div ><a style="font-size:20px ;" href="{% url 'product:information' i.id %}">{{ i.title }}</a></div>
+                          <div class="discount"> {{ i.cost }}</div>
+                          <div class="discountcost"> {{i.discount_cost}} </div>
+                      </div>
+                  </div>
+                        
+                {% endfor %}
+                    
+              {% else %}
+                
+                <div class="alert alert-warning" role="alert" style="width:fit-content;font-size: 18px; margin: 10px;">
+                  Không tìm thấy sản phẩm nào !
+                </div>
+              {% endif%}
+            </div>
+        </div>
+
+    </div>
+  </aside>
+
+
+            
+{% endblock %}

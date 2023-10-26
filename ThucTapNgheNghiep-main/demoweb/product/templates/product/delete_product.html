@@ -1,0 +1,16 @@
+<h2>Bạn muốn xóa sản phẩm: "{{sp}}"</h2>
+<form action="{% url 'product:delete_product' sp.id %}" method="POST">
+    {% csrf_token %}
+    <!-- <a href="% url 'product:list_product' %">Không đồng ý</a> -->
+    <input type="submit" value="Đồng ý">
+    <button type="button" class="btn btn-secondary" onclick="chuyentrang1()">Không đồng ý</a></button>
+            <script>
+              function chuyentrang1()
+              {
+                location.assign("{% url 'product:list_product'  %}");
+              }
+                
+            </script>
+    
+
+</form>

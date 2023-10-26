@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tb-head{
+            background-color: red;
+            display: inline-block;
+            
+        } 
+        .cart-tb{
+            width: 100%;
+            border-collapse:collapse;
+            border-radius: 5px;
+            box-shadow:4px 4px 5px black ;
+            text-align: center;
+        }
+        .checkout-cart{
+            margin-left: 50px;
+        }
+        .row-image{
+            width: 120px;
+            height: 120px;
+
+        }
+        tr{
+            border: 1px solid black;
+        
+        }
+    </style>
+</head>
+<body>
+    <table class="cart-tb">
+        <tr class="table-head">
+            <th></th>
+            <th>Sản phẩm</th>
+            <th>Giá tiền</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th></th>
+        </tr>
+        {% for i in orderdetail %}
+                
+        
+            <tr class="table-content" >
+            
+                <td><img class="row-image" style="padding:10px; width: 120px; height: 120px;" src="{{i.product.image.url}}"></td>
+                <td><p>{{i.product.title}}</p></td>
+                <td><p>{{i.product.discount_cost}}</p></td>
+                    
+                <td><p style="display: inline-block ;" class="quantity">{{i.quantity}}</p></td>
+    
+                <td>{{i.total}}</td>
+                
+        {% endfor %}
+        </tr>
+    </table>
+</body>
+</html>
